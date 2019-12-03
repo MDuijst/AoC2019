@@ -1,9 +1,15 @@
-package test.java.Day02;
+package day03;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
-public class Day02Test {
+public class Day03Test {
+
+    @Test
+    void testExampleOne() {
+        int input = 12;
+  //      assertEquals(2,//);
+    }
+
 
     @Test
     void puzzle() {
