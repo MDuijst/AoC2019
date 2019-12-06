@@ -26,6 +26,7 @@ public class Day03 {
     public static ArrayList<Coordinate> readInstruction(String[] input) {
         int x = 0;
         int y = 0;
+        int step = 0;
         ArrayList<Coordinate> coordinates = new ArrayList<Coordinate>();
         for (String instructions : input) {
             int distance = Integer.valueOf(instructions.substring(1));
@@ -34,28 +35,32 @@ public class Day03 {
                 case 'R': { // do move right
                     for(int i=0;i<distance;i++) {
                         x++; //move right means x up
-                        coordinates.add(new Coordinate(x,y));
+                        step++;
+                        coordinates.add(new Coordinate(x,y, step));
                     }
                     break;
                 }
                 case 'U': { // do move upp
                     for(int i=0;i<distance;i++) {
                         y++; //move up means y up
-                        coordinates.add(new Coordinate(x,y));
+                        step++;
+                        coordinates.add(new Coordinate(x,y, step));
                     }
                     break;
                 }
                 case 'D': { // do move down
                     for(int i=0;i<distance;i++) {
                         y--; //move down means y down
-                        coordinates.add(new Coordinate(x,y));
+                        step++;
+                        coordinates.add(new Coordinate(x,y, step));
                     }
                     break;
                 }
                 case 'L': { // do move left
                     for(int i=0;i<distance;i++) {
                         x--; //move left means x down
-                        coordinates.add(new Coordinate(x,y));
+                        step++;
+                        coordinates.add(new Coordinate(x,y, step));
                     }
                     break;
                 }
@@ -89,5 +94,22 @@ public class Day03 {
             }
         }
         return shortestDistance;
+    }
+
+    public static int getShortestDistanceInNoOfSteps (ArrayList<Coordinate> wireA, ArrayList<Coordinate> wireB) {
+        int smallestSteps = Integer.MAX_VALUE;
+        wireA.retainAll(wireB);
+        wireB.retainAll(wireA);
+        for (Coordinate coordinateA : wireA) {
+            for (Coordinate coordinateB : wireB) {
+                if(coordinateA.equals(coordinateB)) {
+                    int steps = coordinateA.getStep() + coordinateB.getStep();
+                    if (steps < smallestSteps) {
+                        smallestSteps = steps;
+                    }
+                }
+            }
+        }
+        return smallestSteps;
     }
 }
